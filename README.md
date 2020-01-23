@@ -1,6 +1,7 @@
 # poly-validator
 
 ![npm](https://img.shields.io/npm/v/poly-validator)
+
 For client side form validation in polymer apps
 
 ### Installation
