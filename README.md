@@ -4,24 +4,68 @@
 
 For client side form validation in polymer apps
 
-### Installation
+## Installation
 
 ```sh
 yarn add poly-validator
 ```
 
-### Rules
+## Rules
  - required
  - number
  - min:`<minimum allowed-characters>`
  - max:`<maximum-allowed-characters>`
  
- More to come
 
+## Properties
+* ##### input-validator
+  -  **rules**: A string of rules seperated by ```|```. For example ``` rules="required|number" ```
+  - **name**: A string representing the name of the input field.
 
-### Usages
+## Events
+* ##### input-validator
+  -  **validate**: Is fired every time a validation is verified. The payload contains an object with properties representing fieldName (String), errorMessage (String) and isValid (Boolean)
+
+## Methods
+* ##### input-validator
+  -  **validate**: Takes no parameter. Returns if the field is valid or not.
+* ##### form-validator
+  -  **validate**: Takes no parameter. Returns if the form is valid or not.
+
+## Usages
+
+#### Necessary Imports
+```
+import 'poly-validator/src/components/input-validator'
+import 'poly-validator/src//components/form-validator'
+```
+#### In the template
+
+Wrap the input field with ```<input-validator>```
+```
+<input-validator 
+  rules="min:2|max:5"
+  name="Gender"
+  @validate="${this.handleValidation}" 
+>
+  <input type="text" value="Male">
+  <p>${this.fieldErrors.Gender}</p>
+</input-validator>
 
 ```
+
+Wrap a list of ```<input-validator>``` with ```<form-validator>```
+```
+<form-validator>
+  <input-validator>....</input-validator>
+  <input-validator>....</input-validator>
+  <input-validator>....</input-validator>
+  ...  
+</form-validator>
+```
+
+#### Full Example
+````
 import { LitElement, html } from 'lit-element';
 import 'poly-validator/src/components/input-validator'
 import 'poly-validator/src//components/form-validator'
@@ -86,7 +130,7 @@ class TestForm extends LitElement {
 
 customElements.define('test-form', TestForm);
 
-```
+````
 
 License
 ----
