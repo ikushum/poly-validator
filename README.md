@@ -10,6 +10,12 @@ yarn add poly-validator
 ```
 
 ### Rules
+ - required
+ - number
+ - min:`<minimum allowed-characters>`
+ - max:`<maximum-allowed-characters>`
+ 
+ More to come
 
 
 ### Usages
