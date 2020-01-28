@@ -11,21 +11,31 @@ class InputValidator extends PolymerElement {
       },
       name: {
         type: String
+      },
+      element: {
+        type: Object,
+        required: false
       }
     };
   }
 
   ready(){
     super.ready();
+    this.inputField = this.element || this.querySelector('input')
     this.configureValidationBehaviour()
   }
 
   configureValidationBehaviour () {
-    this.querySelector('input').addEventListener(validationBehaviour, this.validate.bind(this));    
+    this.inputField.addEventListener(validationBehaviour, this.validate.bind(this));    
+  } 
+
+  setCustomValidators (customValidations) {
+    RULES = { ...RULES, ...customValidations.rules }
+    ERROR_MESSAGES = { ...ERROR_MESSAGES, ...customValidations.errorMessages }
   }
 
   validate () {
-    let value = this.querySelector('input').value
+    let value = this.inputField.value
     let isValid = true
     let errorMessage = ''
     const rules = this.rules.split('|')
@@ -61,7 +71,7 @@ class InputValidator extends PolymerElement {
 
 customElements.define('input-validator', InputValidator);
 
-const RULES = {
+let RULES = {
   required (value) {
     return !!value
   },
@@ -76,7 +86,7 @@ const RULES = {
   }
 }
 
-const ERROR_MESSAGES = {
+let ERROR_MESSAGES = {
   required (fieldName) {
     return `The field ${fieldName} is required`
   },
