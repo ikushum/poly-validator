@@ -1,6 +1,6 @@
 {
   "name": "poly-validator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "For client side form validation in polymer apps",
   "author": "Ishan Subedi",
   "dependencies": {

@@ -21,7 +21,8 @@ yarn add poly-validator
 * ##### input-validator
   -  **rules**: A string of rules seperated by ```|```. For example ``` rules="required|number" ```
   - **name**: A string representing the name of the input field.
-
+  - **element**: The HTML element (usually the input field) to validate
+  
 ## Events
 * ##### input-validator
   -  **validate**: Is fired every time a validation is verified. The payload contains an object with properties representing fieldName (String), errorMessage (String) and isValid (Boolean)
@@ -29,6 +30,21 @@ yarn add poly-validator
 ## Methods
 * ##### input-validator
   -  **validate**: Takes no parameter. Returns if the field is valid or not.
+  -  **setCustomValidators**: Used to add new validators. Takes object as an parameter for example:
+    ```
+    {
+      rules: {
+        customRegexValidation: (value) => {
+          return (regularExpression.test(value))
+        }
+      },
+      errorMessages: {
+        customRegexValidation (fieldName) {
+          return `The field ${fieldName} must match the regex expression ${regularExpression}`
+        }
+      }
+    }    
+    ```
 * ##### form-validator
   -  **validate**: Takes no parameter. Returns if the form is valid or not.
 
