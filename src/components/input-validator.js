@@ -1,17 +1,13 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-
-const validationBehaviour = 'input'
+import PolyValidator from '../index'
 
 class InputValidator extends PolymerElement {
   static get properties () {
     return {
-      rules: {
-        type: String,
-        value: ''
-      },
-      name: {
-        type: String
-      },
+      rules: { type: String },
+      customRules: { type: Object },
+      customErrorMessages: { type: Object },
+      name: { type: String },
       element: {
         type: Object,
         required: false
@@ -26,26 +22,24 @@ class InputValidator extends PolymerElement {
   }
 
   configureValidationBehaviour () {
+    const validationBehaviour = PolyValidator.interactionMode.getInputBehaviour()
     this.inputField.addEventListener(validationBehaviour, this.validate.bind(this));    
   } 
-
-  setCustomValidators (customValidations) {
-    RULES = { ...RULES, ...customValidations.rules }
-    ERROR_MESSAGES = { ...ERROR_MESSAGES, ...customValidations.errorMessages }
-  }
 
   validate () {
     let value = this.inputField.value
     let isValid = true
     let errorMessage = ''
+    const validationRules = this.customRules || PolyValidator.rules.get()
+    const validationErrors = this.customErrorMessages || PolyValidator.errorMessages.get()
     const rules = this.rules.split('|')
     rules.forEach(rule => {
       let ruleName = rule.split(':')[0]
       let param = rule.split(':')[1]
       try {
-        if (!RULES[ruleName](value, param)) {
+        if (!validationRules[ruleName](value, param)) {
           isValid = false
-          errorMessage = ERROR_MESSAGES[ruleName](this.name, param)
+          errorMessage = validationErrors[ruleName](this.name, param)
         }
       } catch (e) {
         console.log(e)
@@ -70,33 +64,3 @@ class InputValidator extends PolymerElement {
 }
 
 customElements.define('input-validator', InputValidator);
-
-let RULES = {
-  required (value) {
-    return !!value
-  },
-  number (value) {
-    return !isNaN(value)
-  },
-  max (value, param) {
-    return !(value.length > param)
-  },
-  min (value, param) {
-    return !(value.length < param)
-  }
-}
-
-let ERROR_MESSAGES = {
-  required (fieldName) {
-    return `The field ${fieldName} is required`
-  },
-  number (fieldName) {
-    return `The field ${fieldName} must be a numeric value`
-  },
-  max (fieldName, param) {
-    return `The field ${fieldName} must not be greater than ${param} characters`
-  },
-  min (fieldName, param) {
-    return `The field ${fieldName} must not be less than ${param} characters`
-  }
-}

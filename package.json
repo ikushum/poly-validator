@@ -1,8 +1,9 @@
 {
   "name": "poly-validator",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "For client side form validation in polymer apps",
   "author": "Ishan Subedi",
+  "main": "./src/index.js",
   "dependencies": {
     "@polymer/polymer": "latest",
     "@webcomponents/webcomponentsjs": "latest"

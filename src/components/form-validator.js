@@ -1,4 +1,3 @@
-
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 class FormValidator extends PolymerElement {
