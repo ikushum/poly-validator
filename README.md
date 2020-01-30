@@ -30,21 +30,7 @@ yarn add poly-validator
 ## Methods
 * ##### input-validator
   -  **validate**: Takes no parameter. Returns if the field is valid or not.
-  -  **setCustomValidators**: Used to add new validators. Takes object as an parameter for example:
-    ```
-    {
-      rules: {
-        customRegexValidation: (value) => {
-          return (regularExpression.test(value))
-        }
-      },
-      errorMessages: {
-        customRegexValidation (fieldName) {
-          return `The field ${fieldName} must match the regex expression ${regularExpression}`
-        }
-      }
-    }    
-    ```
+
 * ##### form-validator
   -  **validate**: Takes no parameter. Returns if the form is valid or not.
 
